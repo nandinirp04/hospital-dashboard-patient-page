@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pediatric Hospital Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Container for the dashboard -->
+  <div class="container mt-5">
+    <h1 class="text-center text-primary">Pediatric Hospital Dashboard</h1>
+    <p class="text-center text-info">Welcome to the children's hospital patient management system</p>
+
+    <!-- Section Buttons (Tabs) -->
+    <div class="button-group text-center mb-4">
+      <button class="btn btn-outline-primary" onclick="toggleSection('patientDetails')">Patient Details</button>
+      <button class="btn btn-outline-primary" onclick="toggleSection('symptomsSection')">Symptoms</button>
+      <button class="btn btn-outline-primary" onclick="toggleSection('medicationSection')">Medications</button>
+      <button class="btn btn-outline-primary" onclick="toggleSection('conditionsSection')">Possible Conditions</button>
+    </div>
+
+    <!-- Patient Details Section -->
+    <div id="patientDetails" class="section">
+      <h3>Patient Details</h3>
+      <form id="patientForm">
+        <div class="mb-3">
+          <label for="patientName" class="form-label">Name</label>
+          <input type="text" class="form-control" id="patientName" placeholder="Enter Patient Name">
+        </div>
+        <div class="mb-3">
+          <label for="patientAge" class="form-label">Age</label>
+          <input type="number" class="form-control" id="patientAge" placeholder="Enter Patient Age">
+        </div>
+        <div class="mb-3">
+          <label for="patientWeight" class="form-label">Weight (kg)</label>
+          <input type="number" class="form-control" id="patientWeight" placeholder="Enter Weight (kg)">
+        </div>
+        <div class="mb-3">
+          <label for="admittedStatus" class="form-label">Admitted</label>
+          <select class="form-select" id="admittedStatus">
+            <option value="no">Not Admitted</option>
+            <option value="acu">Admitted to ACU</option>
+            <option value="icu">Admitted to ICU</option>
+            <option value="nicu">Admitted to NICU</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <!-- Symptoms Section -->
+    <div id="symptomsSection" class="section">
+      <h3>Symptoms</h3>
+      <form>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="fever" value="fever">
+          <label class="form-check-label" for="fever">Fever</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="cough" value="cough">
+          <label class="form-check-label" for="cough">Cough</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="headache" value="headache">
+          <label class="form-check-label" for="headache">Headache</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="vomiting" value="vomiting">
+          <label class="form-check-label" for="vomiting">Vomiting</label>
+        </div>
+      </form>
+    </div>
+
+    <!-- Possible Conditions Section -->
+    <div id="conditionsSection" class="section">
+      <h3>Possible Conditions</h3>
+      <div class="list-group" id="conditionsList">
+        <a href="#" class=" list-group-item list-group-item-action">Please select symptoms to determine possible conditions</a>
+      </div>
+    </div>
+
+    <!-- Medications Section -->
+    <div id="medicationSection" class="section">
+      <h3>Medications</h3>
+      <form id="medicationForm">
+        <div class="mb-3">
+          <label for="medicine" class="form-label">Choose Medicine</label>
+          <select class="form-select" id="medicine">
+            <option value="antibiotic">Antibiotic</option>
+            <option value="cough_syrup">Cough Syrup</option>
+            <option value="painkiller">Painkiller</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="dose" class="form-label">Dose (mg)</label>
+          <input type="number" class="form-control" id="dose" placeholder="Enter Dose (mg)">
+        </div>
+        <div class="mb-3">
+          <label for="medicationAgeWeight" class="form-label">Age & Weight-Based Doses</label>
+          <div id="doseResult" class="text-info"></div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="calculateDose()">Calculate Dose</button>
+      </form>
+    </div>
+
+    <!-- Print Option -->
+    <button class="btn btn-success mt-4" onclick="window.print()">Print Patient Info</button>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
+
+<script>
+// Function to toggle visibility of sections
+function toggleSection(sectionId) {
+    var sections = document.querySelectorAll('.section');
+    sections.forEach(function (section) {
+        section.style.display = 'none';
+    });
+
+    var sectionToShow = document.getElementById(sectionId);
+    if (sectionToShow) {
+        sectionToShow.style.display = 'block';
+    }
+}
+
+// Function to calculate the adjusted medication dose based on patient's weight and age
+function calculateDose() {
+    var weight = parseInt(document.getElementById('patientWeight').value);
+    var age = parseInt(document.getElementById('patientAge').value);
+    var dose = parseInt(document.getElementById('dose').value);
+
+    if (weight && age && dose) {
+        var adjustedDose = dose * (weight / 10);
+        document.getElementById('doseResult').innerHTML = "Adjusted Dose: " + adjustedDose.toFixed(2) + " mg";
+    } else {
+        alert("Please fill all the fields correctly!");
+    }
+}
+
+// Function to handle the selection of symptoms and update possible conditions
+function updatePossibleConditions() {
+    let selectedSymptoms = [];
+    const symptomCheckboxes = document.querySelectorAll('.form-check-input');
+    
+    symptomCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedSymptoms.push(checkbox.value);
+        }
+    });
+
+    const conditionsContainer = document.getElementById('conditionsList');
+    conditionsContainer.innerHTML = '';
+
+    if (selectedSymptoms.length > 0) {
+        selectedSymptoms.forEach(symptom => {
+            let condition = document.createElement('a');
+            condition.classList.add('list-group-item', 'list-group-item-action');
+            condition.href = '#';
+
+            switch (symptom) {
+                case 'fever':
+                    condition.textContent = "Possible: Flu or Viral Infection";
+                    break;
+                case 'cough':
+                    condition.textContent = "Possible: Cold or Cough-related Infection";
+                    break;
+                case 'headache':
+                    condition.textContent = "Possible: Migraine or Viral Infection";
+                    break;
+                case 'vomiting':
+                    condition.textContent = "Possible: Gastrointestinal Infection";
+                    break;
+                default:
+                    condition.textContent = "Possible: General Infection";
+            }
+
+            conditionsContainer.appendChild(condition);
+        });
+    } else {
+        let defaultCondition = document.createElement('a');
+        defaultCondition.classList.add('list-group-item', 'list-group-item-action');
+        defaultCondition.href = '#';
+        defaultCondition.textContent = "Please select symptoms to determine possible conditions";
+        conditionsContainer.appendChild(defaultCondition);
+    }
+}
+
+// Add event listener to symptom checkboxes to dynamically update conditions
+const symptomCheckboxes = document.querySelectorAll('.form-check-input');
+symptomCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updatePossibleConditions);
+});
+
+// Optional: Automatically update conditions on page load if any symptoms are already checked
+document.addEventListener('DOMContentLoaded', updatePossibleConditions);
+
+function loadPatientHistory(patientId) {
+    fetch(`/api/patient/${patientId}/history`)
+        .then(response => response.json())
+        .then(data => {
+            const historyContainer = document.getElementById('patientHistory');
+            historyContainer.innerHTML = ''; // Clear previous history
+            data.forEach(record => {
+                const recordElement = document.createElement('div');
+                recordElement.innerHTML = `
+                    <p>Date: ${record.date}</p>
+                    <p>Diagnosis: ${record.diagnosis}</p>
+                    <p>Treatment: ${record.treatment}</p>
+                    <hr>
+                `;
+                historyContainer.appendChild(recordElement);
+            });
+        })
+        .catch(error => console.error('Error fetching patient history:', error));
+}
+</script>
+
+<style>
+/* General Styles */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+h3 {
+    color: #16a085;
+    font-weight: bold;
+}
+
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-label {
+    font-size: 18px;
+}
+
+#doseResult {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+button {
+    margin-top: 10px;
+}
+
+/* Background Styles */
+.bg-light {
+    background: url('https://img.freepik.com/premium-photo/pediatric-hospital-background-with-blurred-effect-space-creative-medical-banners-concept-pediatric-hospital-blurred-background-creative-banners-medical-theme-design-space_918839-343533.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    padding: 40px;
+}
+
+/* Card Styling for Conditions */
+.list-group-item-action {
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item-action:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+}
+
+/* Initially hide all sections */
+.section {
+    display: none;
+}
+</style> ⬤

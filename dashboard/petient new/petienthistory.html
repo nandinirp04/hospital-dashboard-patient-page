@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Admin Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 80vw;
+        }
+        .add-medication-form input, .add-medication-form select {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="mt-4 text-center">Pharmacy - Pediatric Hospital Admin Panel</h2>
+
+    <!-- Add Medication Section -->
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-pills"></i> Add New Medication
+        </div>
+        <div class="card-body">
+            <form class="add-medication-form" onsubmit="addMedication(event)">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="medName">Medication Name</label>
+                        <input type="text" class="form-control" id="medName" placeholder="Medication Name" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="medType">Type</label>
+                        <select id="medType" class="form-control" required>
+                            <option selected disabled>Choose...</option>
+                            <option>Syrup</option>
+                            <option>Tablet</option>
+                            <option>Injection</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" placeholder="Quantity" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="dose">Dose (mg)</label>
+                        <input type="number" class="form-control" id="dose" placeholder="Dose" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="date" class="form-control" id="expiryDate" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Medication</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Medication List Section -->
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <i class="fas fa-list"></i> Medication List
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Medication Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Dose</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="medicationList">
+                    <!-- Dynamic rows for medications will appear here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Inventory Chart Section -->
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <i class="fas fa-chart-bar"></i> Inventory Overview
+        </div>
+        <div class="card-body">
+            <div class="chart-container">
+                <canvas id="inventoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Array to hold medication data
+    let medications = [
+        { id: 1, name: 'Paracetamol', type: 'Tablet', quantity: 50, dose: 500, expiry: '2025-01-01' },
+        { id: 2, name: 'Ibuprofen', type: 'Syrup', quantity: 20, dose: 100, expiry: '2024-06-12' }
+    ];
+
+    // Function to display medications in the table
+    function displayMedications() {
+        const medicationList = document.getElementById('medicationList');
+        medicationList.innerHTML = '';
+        medications.forEach((med, index) => {
+            medicationList.innerHTML += `
+                <tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${med.name}</td>
+                    <td>${med.type}</td>
+                    <td>${med.quantity}</td>
+                    <td>${med.dose} mg</td>
+                    <td>${med.expiry}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="removeMedication(${med.id})"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `;
+        });
+    }
+
+    // Add Medication function
+    function addMedication(event) {
+        event.preventDefault();
+        const name = document.getElementById('medName').value;
+        const type = document.getElementById('medType').value;
+        const quantity = parseInt(document.getElementById('quantity').value);
+        const dose = parseInt(document.getElementById('dose').value);
+        const expiry = document.getElementById('expiryDate').value;
+
+        const newMed = {
+            id: medications.length + 1,
+            name,
+            type,
+            quantity,
+            dose,
+            expiry
+        };
+        
+        medications.push(newMed);
+        displayMedications();
+        updateChart();
+        event.target.reset();
+    }
+
+    // Remove Medication function
+    function removeMedication(id) {
+        medications = medications.filter(med => med.id !== id);
+        displayMedications();
+        updateChart();
+    }
+
+    // Chart for medication quantity
+    const ctx = document.getElementById('inventoryChart').getContext('2d');
+    let inventoryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: medications.map(med => med.name),
+            datasets: [{
+                label: 'Quantity',
+                data: medications.map(med => med.quantity),
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Update chart with latest data
+    function updateChart() {
+        inventoryChart.data.labels = medications.map(med => med.name);
+        inventoryChart.data.datasets[0].data = medications.map(med => med.quantity);
+        inventoryChart.update();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        displayMedications();
+        updateChart();
+    });
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

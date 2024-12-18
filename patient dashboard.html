@@ -1,0 +1,228 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard - Patient List</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+        }
+
+        .dashboard-container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+        }
+
+        /* Header */
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Filter styling */
+        .appointment-filter {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        input[type="datetime-local"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Patient list */
+        .patient-list {
+            margin-top: 20px;
+        }
+
+        .patient-list p {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            background: #e9f5ec;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Patient Appointment List</h2>
+        
+        <-- Appointment Filter Section -->
+        <!-- <div class="appointment-filter">
+            <label for="appointment-time">Select Date and Time:</label>
+            <input type="datetime-local" id="appointment-time" name="appointment-time">
+            <button onclick="showAppointments()">Show Appointments</button>
+        </div>
+        
+        <-- Patient List Section -->
+        <!-- <div class="patient-list">
+            <p>Total Appointments: <span id="appointment-count">0</span></p>
+            <ul id="patient-list">
+                <-- Patient names will be populated here -->
+            <!-- </ul>
+        </div>
+    </div> 
+    <script> -->
+        <!-- // Sample data: List of patients with their appointment times
+        const patients = [
+            { name: "John Doe", appointmentTime: "2024-10-29T09:00" },
+            { name: "Jane Smith", appointmentTime: "2024-10-29T09:00" },
+            { name: "Alice Johnson", appointmentTime: "2024-10-29T11:00" },
+            { name: "Bob Brown", appointmentTime: "2024-10-29T13:00" }
+        ];
+
+        function showAppointments() {
+            // Get the selected date and time
+            const selectedTime = document.getElementById("appointment-time").value;
+            
+            // Filter patients with the selected appointment time
+            const filteredPatients = patients.filter(patient => patient.appointmentTime === selectedTime);
+            
+            // Get the patient list element and clear previous entries
+            const patientListElement = document.getElementById("patient-list");
+            patientListElement.innerHTML = "";
+            
+            // Populate patient list with filtered patients
+            filteredPatients.forEach(patient => {
+                const listItem = document.createElement("li");
+                listItem.textContent = patient.name;
+                patientListElement.appendChild(listItem);
+            });
+            
+            // Update the appointment count
+            document.getElementById("appointment-count").textContent = filteredPatients.length;
+        }
+    </script>
+</body>
+</html>  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard - Patient Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Hospital Dashboard</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Patients</a>
+            <a href="#">Doctors</a>
+            <a href="#">Appointments</a>
+            <a href="#">Reports</a>
+            <a href="#">Settings</a>
+            <div class="profile">Logout</div>
+        </nav>
+    </header>
+
+    <!-- Search Bar -->
+    <section class="search-bar">
+        <input type="text" id="search" placeholder="Search Patient by Name or ID">
+        <button onclick="searchPatient()">Search</button>
+    </section>
+
+    <!-- Patient Overview -->
+    <section class="overview">
+        <div class="overview-item">
+            <h3>Total Patients</h3>
+            <p id="totalPatients">150</p>
+        </div>
+        <div class="overview-item">
+            <h3>Inpatients</h3>
+            <p id="inpatients">100</p>
+        </div>
+        <div class="overview-item">
+            <h3>Outpatients</h3>
+            <p id="outpatients">50</p>
+        </div>
+        <div class="overview-item">
+            <h3>Recent Admissions</h3>
+            <ul id="recentAdmissions">
+                <!-- JS will populate this -->
+            </ul>
+        </div>
+    </section>
+
+    <!-- Patient List -->
+    <section class="patient-list">
+        <h2>Patient List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Admission Date</th>
+                    <th>Ward/Room</th>
+                    <th>Status</th>
+                    <th>Doctor Assigned</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="patientTable">
+                <!-- JS will populate this -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

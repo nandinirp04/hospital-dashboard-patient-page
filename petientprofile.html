@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile</title>
+    <link rel="stylesheet" href="petientprofile.css">
+</head>
+<body>
+    <div class="dashboard">
+        <section class="patient-profile">
+            <h2>Patient Profile</h2>
+            <div class="info-block">
+                <h3>Basic Information</h3>
+                <p><strong>Full Name:</strong> <span id="fullName"></span> <input type="text" id="editFullName" style="display:none;"></p>
+                <p><strong>Patient ID:</strong> <span id="patientId"></span><input type="text" id="editFullName" style="display:none;"></p>
+                <p><strong>Date of Birth & Age:</strong> <span id="dobAndAge"></span><input type="text" id="editFullName" style="display:none;"></p>
+                <p><strong>Gender:</strong> <span id="gender"></span><input type="text" id="editFullName" style="display:none;"></p>
+            </div>
+            <div class="info-block">
+                <h3>Contact Details</h3>
+                <p><strong>Phone Number:</strong> <span id="phoneNumber"></span> <input type="text" id="editPhoneNumber" style="display:none;"></p>
+                <p><strong>Email Address:</strong> <span id="email"></span> <input type="text" id="editEmail" style="display:none;"></p>
+                <p><strong>Emergency Contact:</strong> <span id="emergencyContact"></span> <input type="text" id="editEmergencyContact" style="display:none;"></p>
+            </div>
+        </section>
+
+        <section class="medical-info">
+            <h2>Medical Information</h2>
+            <div class="info-block">
+                <p><strong>Known Allergies:</strong> <span id="allergies"></span> <input type="text" id="editAllergies" style="display:none;"></p>
+                <p><strong>Medical Conditions:</strong> <span id="medicalConditions"></span> <input type="text" id="editMedicalConditions" style="display:none;"></p>
+                <p><strong>Current Medications:</strong> <span id="medications"></span> <input type="text" id="editMedications" style="display:none;"></p>
+                <p><strong>Immunization History:</strong> <span id="immunizations"></span> <input type="text" id="editImmunizations" style="display:none;"></p>
+                <p><strong>Past Surgeries:</strong> <span id="surgeries"></span> <input type="text" id="editSurgeries" style="display:none;"></p>
+            </div>
+        </section>
+
+        <section class="insurance-billing">
+            <h2>Insurance & Billing</h2>
+            <div class="info-block">
+                <p><strong>Insurance Provider:</strong> <span id="insuranceProvider"></span> <input type="text" id="editInsuranceProvider" style="display:none;"></p>
+                <p><strong>Policy Number:</strong> <span id="policyNumber"></span> <input type="text" id="editPolicyNumber" style="display:none;"></p>
+                <p><strong>Fees Charged:</strong> <span id="feesCharged"></span> <input type="text" id="editFeesCharged" style="display:none;"></p>
+                <p><strong>Billing History:</strong> <span id="billingHistory"></span><input type="text" id="editFullName" style="display:none;"></p>
+            </div>
+        </section>
+
+        <button id="editButton">Edit</button>
+        <button id="saveButton" style="display:none;">Save</button>
+    </div>
+
+    <button onclick="window.history.back();">Back</button>
+
+    <script src="petientprofile.js"></script>
+</body>
+</html>

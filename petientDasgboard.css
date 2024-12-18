@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef; /* Light gray background */
+    color: #333;
+    line-height: 1.6; /* Improved line height for readability */
+}
+
+.header {
+    background-color: #34C759; /* Green theme */
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.header .logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ffd700; /* Gold color on hover */
+}
+
+nav .profile {
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.search-bar {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #34C759; /* Green border */
+    border-radius: 5px;
+}
+
+.search-bar button {
+    padding: 10px;
+    margin-left: 5px;
+    border: none;
+    background-color: #34C759; /* Green button */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #2E865F; /* Darker green on hover */
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333; /* Dark text for headings */
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #34C759; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2E865F; /* Darker green on hover */
+}
+
+#admissionForm, #dischargeForm {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px; /* Center and limit form width */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form select, form textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #34C759; /* Highlight border on focus */
+}
+
+form textarea {
+    resize: vertical; /* Allows vertical resizing only */
+}
+
+.overview {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.overview-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    min-width: 250px; /* Minimum width for smaller screens */
+}
+
+.patient-list {
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.patient-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.patient-list th, .patient-list td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.patient-list th {
+    background-color: #34C759; /* Green table header */
+    color: white;
+}
+
+.patient-list tr:hover {
+    background-color: #f1f1f1; /* Light gray on row hover */
+}
+
+.table-responsive {
+    overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .overview {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .overview-item {
+        width: 90%; /* Full width on small screens */
+        margin: 10px 0;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-bar input {
+        width: 100%; /* Full width input on small screens */
+    }
+
+    #admissionForm, #dischargeForm {
+        width: 90%; /* Full width for forms on small screens */
+    }
+
+    h1 {
+        font-size: 24px; /* Smaller heading on small screens */
+    }
+
+    button {
+        width: 90%; /* Full width buttons on small screens */
+    }
+
+    .patient-list table {
+        font-size: 14px; /* Smaller font size for table on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        flex-direction: column; /* Stack navigation links on small screens */
+        align-items: center;
+    }
+
+    nav a {
+        margin: 5px 0; /* Reduced spacing for stacked links */
+    }
+
+    .search-bar input {
+        width: 100%; /* Full width input on extra small screens */
+    }
+}
+
+/* General styles for the form */
+#editForm {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Default width for mobile */
+    max-width: 600px; /* Maximum width for larger screens */
+    margin: 40px auto;
+  }
+  
+  /* Heading styles */
+  #editForm h2 {
+    margin-top: 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Label styles */
+  #editForm label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Input, select, and textarea styles */
+  #editForm input, 
+  #editForm select, 
+  #editForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding is included in width */
+  }
+  
+  /* Submit button styles */
+  #editForm input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto; /* Button width based on content */
+  }
+  
+  /* Hover effect for the submit button */
+  #editForm input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    #editForm {
+      width: 95%; /* Full width on small screens */
+      padding: 15px; /* Reduced padding for smaller screens */
+    }
+  
+    #editForm h2 {
+      font-size: 1.5em; /* Adjust heading size */
+    }
+  
+    #editForm input, 
+    #editForm select, 
+    #editForm textarea {
+      padding: 8px; /* Smaller padding for inputs */
+    }
+  }

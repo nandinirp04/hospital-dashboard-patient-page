@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+h3 {
+    color: #16a085;
+    font-weight: bold;
+}
+
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-label {
+    font-size: 18px;
+}
+
+#doseResult {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+button {
+    margin-top: 10px;
+}
+
+/* Background Styles */
+.bg-light {
+    background: url('https://img.freepik.com/premium-photo/pediatric-hospital-background-with-blurred-effect-space-creative-medical-banners-concept-pediatric-hospital-blurred-background-creative-banners-medical-theme-design-space_918839-343533.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    padding: 40px;
+}
+
+/* Card Styling for Conditions */
+.list-group-item-action {
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item-action:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+}
+
+
+
+
+
+
+
+/* Initially hide all sections */
+.section {
+    display: none;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+h3 {
+    color: #16a085;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.form-check-label {
+    font-size: 18px;
+}
+
+#doseResult {
+    font-weight: bold;
+}
+
+button {
+    margin-top: 10px;
+}
+
+/* Background Styles */
+.bg-light {
+    background: url('https://img.freepik.com/premium-photo/pediatric-hospital-background-with-blurred-effect-space-creative-medical-banners-concept-pediatric-hospital-blurred-background-creative-banners-medical-theme-design-space_918839-343533.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    padding: 20px;
+}
+
+/* Card Styling for Conditions */
+.list-group-item-action {
+    font-size: 18px;
+}
